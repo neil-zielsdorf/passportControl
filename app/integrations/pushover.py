@@ -3,8 +3,8 @@ import json
 import logging
 from typing import Optional, Dict, Any
 from datetime import date
-from app.database.models import get_database, Document, Person
-from app.utils.date_utils import get_expiry_status, days_until_expiry
+from database.models import get_database, Document, Person
+from utils.date_utils import get_expiry_status, days_until_expiry
 
 logger = logging.getLogger(__name__)
 

@@ -1,9 +1,9 @@
 import streamlit as st
 import os
 from datetime import date, datetime
-from app.database.models import get_database, Person, Document
-from app.utils.date_utils import get_expiry_status, days_until_expiry, format_date_friendly
-from app.utils.photo_handler import save_uploaded_photo, get_photo_path, photo_exists
+from database.models import get_database, Person, Document
+from utils.date_utils import get_expiry_status, days_until_expiry, format_date_friendly
+from utils.photo_handler import save_uploaded_photo, get_photo_path, photo_exists
 
 # Page configuration
 st.set_page_config(
@@ -319,7 +319,7 @@ def documents_tab():
                         if edit_doc.status != document.status:
                             person = db.get_person(document.holder_id)
                             if person:
-                                from app.integrations.caldav_client import get_caldav_client
+                                from integrations.caldav_client import get_caldav_client
                                 caldav_client = get_caldav_client()
                                 caldav_client.update_renewal_status(document, person)
 
@@ -331,7 +331,7 @@ def documents_tab():
                         # Create initial calendar reminder for new documents
                         person = db.get_person(document.holder_id)
                         if person:
-                            from app.integrations.caldav_client import get_caldav_client
+                            from integrations.caldav_client import get_caldav_client
                             caldav_client = get_caldav_client()
                             caldav_client.create_renewal_reminder(document, person)
 
@@ -438,7 +438,7 @@ def settings_tab():
         # Test connection
         if user_key and api_token:
             if st.button("🧪 Test Pushover Connection"):
-                from app.integrations.pushover import send_test_notification
+                from integrations.pushover import send_test_notification
                 success, message = send_test_notification()
                 if success:
                     st.success(f"✅ {message}")
@@ -471,7 +471,7 @@ def settings_tab():
             auto_username = st.text_input("Username for auto-discovery")
 
             if st.button("🔍 Discover CalDAV URL") and auto_server and auto_username:
-                from app.integrations.caldav_client import discover_caldav_url
+                from integrations.caldav_client import discover_caldav_url
                 discovered_url = discover_caldav_url(auto_server, auto_username)
                 if discovered_url:
                     st.success(f"✅ Discovered CalDAV URL: {discovered_url}")
@@ -513,7 +513,7 @@ def settings_tab():
         # Test connection
         if caldav_url and username and password:
             if st.button("🧪 Test CalDAV Connection"):
-                from app.integrations.caldav_client import test_caldav_connection
+                from integrations.caldav_client import test_caldav_connection
                 success, message = test_caldav_connection()
                 if success:
                     st.success(f"✅ {message}")
@@ -536,7 +536,7 @@ def settings_tab():
 
     with col2:
         if st.button("🔔 Test Notifications Now"):
-            from app.utils.notification_scheduler import get_notification_scheduler
+            from utils.notification_scheduler import get_notification_scheduler
             scheduler = get_notification_scheduler()
             result = scheduler.check_now()
 
@@ -563,9 +563,9 @@ def settings_tab():
     st.markdown("### 📊 Integration Status")
 
     # Get current status
-    from app.integrations.pushover import get_pushover_client
-    from app.integrations.caldav_client import get_caldav_client
-    from app.utils.notification_scheduler import get_notification_scheduler
+    from integrations.pushover import get_pushover_client
+    from integrations.caldav_client import get_caldav_client
+    from utils.notification_scheduler import get_notification_scheduler
 
     pushover_client = get_pushover_client()
     caldav_client = get_caldav_client()
@@ -668,7 +668,7 @@ def main():
 
     # Start notification scheduler on first run
     if 'scheduler_started' not in st.session_state:
-        from app.utils.notification_scheduler import start_notification_scheduler
+        from utils.notification_scheduler import start_notification_scheduler
         start_notification_scheduler()
         st.session_state['scheduler_started'] = True
 

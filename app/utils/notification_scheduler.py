@@ -3,10 +3,10 @@ import threading
 import time
 from datetime import date, datetime, timedelta
 from typing import List, Dict, Any
-from app.database.models import get_database, Document, Person
-from app.utils.date_utils import days_until_expiry, get_expiry_status
-from app.integrations.pushover import get_pushover_client
-from app.integrations.caldav_client import get_caldav_client
+from database.models import get_database, Document, Person
+from utils.date_utils import days_until_expiry, get_expiry_status
+from integrations.pushover import get_pushover_client
+from integrations.caldav_client import get_caldav_client
 
 logger = logging.getLogger(__name__)
 

@@ -3,7 +3,7 @@ import json
 from datetime import datetime, date
 from typing import List, Dict, Optional, Any
 from dataclasses import dataclass, asdict
-from app.utils.encryption import get_encryption
+from utils.encryption import get_encryption
 
 DATABASE_PATH = "data/passport_manager.db"
 

@@ -5,8 +5,8 @@ from urllib.parse import urljoin
 import caldav
 from caldav.lib import error
 from icalendar import Calendar, Event
-from app.database.models import get_database, Document, Person
-from app.utils.date_utils import get_notification_dates
+from database.models import get_database, Document, Person
+from utils.date_utils import get_notification_dates
 
 logger = logging.getLogger(__name__)
 
