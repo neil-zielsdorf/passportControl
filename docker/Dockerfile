@@ -15,10 +15,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY app/ ./app/
+COPY app/ ./
 
 # Create data directory
 RUN mkdir -p data/photos
+
+# Add current directory to Python path
+ENV PYTHONPATH=/app
 
 # Expose port
 EXPOSE 8270
@@ -30,4 +33,4 @@ ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 ENV STREAMLIT_SERVER_HEADLESS=true
 
 # Run the application
-CMD ["streamlit", "run", "app/main.py", "--server.port=8270", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "main.py", "--server.port=8270", "--server.address=0.0.0.0"]
