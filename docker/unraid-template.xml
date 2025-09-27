@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>family-passport-manager</Name>
+  <Repository>ghcr.io/neil-zielsdorf/passportcontrol:latest</Repository>
+  <Registry>https://ghcr.io/</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/neil-zielsdorf/passportControl/issues</Support>
+  <Project>https://github.com/neil-zielsdorf/passportControl</Project>
+  <Overview>Family Passport Manager - A self-hosted, mobile-first web application for tracking family government documents (passports, licenses, NEXUS cards, etc.) with smart expiry notifications and privacy-focused design. Features AES encryption, Pushover notifications, CalDAV calendar integration, and Docker deployment.</Overview>
+  <Category>Tools: Productivity</Category>
+  <WebUI>http://[IP]:[PORT:8270]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/neil-zielsdorf/passportControl/master/docker/unraid-template.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/neil-zielsdorf/passportControl/master/docs/icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled></DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="WebUI Port" Target="8270" Default="8270" Mode="tcp" Description="Web interface port" Type="Port" Display="always" Required="true" Mask="false">8270</Config>
+  <Config Name="Data Directory" Target="/app/data" Default="/mnt/user/appdata/passport-manager/data" Mode="rw" Description="Directory for database and photos" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/passport-manager/data</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/Vancouver" Mode="" Description="Timezone for date calculations" Type="Variable" Display="always" Required="false" Mask="false">America/Vancouver</Config>
+  <Config Name="Encryption Key" Target="ENCRYPTION_KEY" Default="change-this-encryption-key-to-something-secure" Mode="" Description="AES encryption key for sensitive data (CHANGE THIS!)" Type="Variable" Display="always" Required="true" Mask="true">change-this-encryption-key-to-something-secure</Config>
+  <Config Name="Pushover User Key" Target="PUSHOVER_USER_KEY" Default="" Mode="" Description="Pushover user key for notifications (optional)" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Pushover API Token" Target="PUSHOVER_API_TOKEN" Default="" Mode="" Description="Pushover API token for notifications (optional)" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="CalDAV URL" Target="CALDAV_URL" Default="" Mode="" Description="CalDAV server URL for calendar integration (optional)" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="CloudFlare Tunnel Token" Target="CF_TUNNEL_TOKEN" Default="" Mode="" Description="CloudFlare tunnel token for external access (optional)" Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+</Container>
