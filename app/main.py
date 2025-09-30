@@ -265,7 +265,7 @@ def documents_tab():
                                          max_value=date.today())
                 expiry_date = st.date_input("Expiry Date*",
                                           value=edit_doc.expiry_date if edit_doc else None,
-                                          min_value=date.today())
+                                          min_value=None if edit_doc else date.today())
 
             with col4:
                 submission_date = st.date_input("Application Submitted Date",
@@ -281,13 +281,7 @@ def documents_tab():
             # Notes
             notes = st.text_area("Notes", value=edit_doc.notes if edit_doc else "", height=100)
 
-            col5, col6 = st.columns(2)
-            with col5:
-                submit_button = st.form_submit_button("Update Document" if edit_doc else "Add Document")
-            with col6:
-                if edit_doc and st.form_submit_button("Cancel Edit"):
-                    st.session_state.pop('edit_document_id', None)
-                    st.rerun()
+            submit_button = st.form_submit_button("Update Document" if edit_doc else "Add Document")
 
             if submit_button:
                 if holder_id and doc_type and country and document_number and expiry_date:
@@ -338,6 +332,12 @@ def documents_tab():
                     st.rerun()
                 else:
                     st.error("Please fill in all required fields")
+
+    # Cancel edit button outside the form
+    if edit_doc:
+        if st.button("Cancel Edit"):
+            st.session_state.pop('edit_document_id', None)
+            st.rerun()
 
     # Display existing documents
     st.markdown("### Current Documents")
